@@ -1,0 +1,52 @@
+{%import "bootstrap/utils.html" as utils%}
+{%extends "base.html"%}
+{%block title%}Library{%endblock%}
+{%block body%}
+<div class="content-section">
+	<div class="outer">
+		<div class="middle">
+			<div class="inner">
+				<h1  style="text-align:center;">All Books</h1>
+				
+				{% if books %}
+				<hr class="intro-divider"/>
+				<div class="center">
+					<table class="tabelka table table-striped table-bordered dataTable">
+						<thead>
+						{% if current_user.is_authenticated %}
+							<th width="25%"> Title </th>
+							<th width="25%"> Author </th>
+							<th width="25%"> Number of pages </th>
+							<th width="25%"> Import </th>
+						{%else%}
+							<th width="33%"> Title </th>
+							<th width="33%"> Author </th>
+							<th width="33%"> Number of pages </th>
+						{%endif%}	
+						</thead>
+						<tbody>
+						{% for book in books %}
+							<tr>
+								<td> {{ book.data.title }} </td>
+								<td> {{ book.data.author }} </td>
+								<td> {{ book.data.pages }} </td>
+								{%if current_user.is_authenticated%}
+								<td>
+									<a href="{{url_for('home.import_book',id=current_user.id, book_id=book.id)}}">
+										<i class="fa fa-long-arrow-down"></i>
+									</a>
+								</td>
+								{%endif%}
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{%endblock%}
+

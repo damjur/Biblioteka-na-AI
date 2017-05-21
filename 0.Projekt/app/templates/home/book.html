@@ -1,0 +1,18 @@
+{%import "bootstrap/utils.html" as utils%}
+{%import "bootstrap/wtf.html" as wtf%}
+{%extends "base.html"%}
+{%block title%}Book{%endblock%}
+{%block body%}
+<div class="content-section">
+	<div class="center">
+		<h1>Book</h1>
+		{{utils.flashed_messages()}}
+		{% if urlform %}
+		<br/>
+		{{wtf.quick_form(urlform)}}
+		{% endif %}
+		<br/>
+		{{wtf.quick_form(form)}}
+	</div>
+</div>
+{%endblock%}

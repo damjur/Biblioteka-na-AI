@@ -1,0 +1,69 @@
+v	rejestracja użytkowników 
+v		nazwa
+v		email
+v		hasło 
+	Rejestracja musi zostać 
+v		potwierdzona 
+v		w ciągu 24 godzin 
+v		poprzez odwiedzenie adresu 
+v			wskazanego w emailu 
+v				wysłanym podczas rejestracji, 
+		w przeciwnym wypadku konto zostanie usunięte. 
+v		nie ma możliwości korzystania z serwisu bez potwierdzenia swojego konta.
+v
+v	Z każdym użytkownikiem związana jedna domowa biblioteka
+v	może zaprosić wielu innych użytkowników 
+v		poprzez podanie ich adresu email, 
+v			wysłanie do nich emaila z zaproszeniem, w którym znajduje się link 
+v				po kliknięciu w link zostanie dodany jako użytkownik biblioteki
+v					jeżeli nie miał konta, musi je założyć
+v		
+v	Wszyscy  użytkownicy  biblioteki  mogą  
+v		wprowadzać  do  niej  nowe  pozycje
+v			ręcznie
+v			automatycznie
+v				przeszukanie bazy dostępnych już w systemie książek
+v				odczytanie danych z jakiegoś zewnętrznego serwisu 
+v					jakieś API serwisu książkowego albo napisać parser jakiegoś serwisu/sklepu z książkami
+v
+v				podać link do książki w serwisie
+v				system powinien wyświetlić stronę z uzupełnionymi automatycznie danymi do weryfikacji
+v
+v		wykrywać duplikaty
+v			informować użytkownika
+v
+	Każdą książkę z domowej biblioteki można wypożyczyć.
+v		na zewnątrz (komuś, kto nie ma konta w systemie)
+v			książka ma status wypożyczona [na zewnątrz]
+		lub innemu użytkownikowi
+v			wypożyczona  [dla  <nazwa  użytkownika>]
+			książka tymczasowo znika z naszych półek (odpowiedni status)
+v			pojawia się  w  bibliotece osoby, która ją wypożyczyła (z informacją od kogo została wypożyczona)
+v		wprowadzenie książki wypożyczonej od kogoś spoza systemu.
+v		oznaczyć książkę jako aktualnie czytaną
+v			datę rozpoczęcia czytania
+v			data zakończenia.
+v			
+v		Z wypożyczeniem związana jest również 
+v			data wypożyczenia
+v			data  zwrotu
+v			
+v		System  umożliwia śledzenie  historii  wypożyczania  każdej  książki.
+v
+v	wyszukiwanie książek przez tytuł lub autora
+v		w ramach swojej biblioteki 
+v		w ramach całego systemu		
+v		
+v	może dodać komentarz do książki w swojej bibliotece 
+v		(widocznie jedynie dla użytkowników danej biblioteki)
+v
+v	Na ekranie głównym 
+v		Statystyki czytania: 
+v			średnia liczba książek na miesiąc/rok, 
+v			średnia liczba stron na dzień
+v		Ostatnio przeczytana książka
+v		Aktualnie czytane książki
+v		Książki wypożyczone innym użytkownikom
+v		książki wypożyczone od innych użytkownikóW
+		
+	Kontrola błędów	

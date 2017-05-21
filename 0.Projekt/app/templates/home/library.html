@@ -1,0 +1,109 @@
+{%import "bootstrap/utils.html" as utils%}
+{%extends "base.html"%}
+{%block title%}Library{%endblock%}
+{%block body%}
+<div class="content-section">
+	<div class="outer">
+		<div class="middle">
+			<div class="inner">
+				<br/>
+					{{ utils.flashed_messages() }}
+				<br/>
+				<h1  style="text-align:center;">My Books</h1>
+				
+				<hr class="intro-divider"/>
+				
+				<div style="text-align:center;">
+				<a href="{{url_for('home.add_book',id=id)}}" class="btn btn-default btn-lg" >
+					<i class="fa fa-plus"></i>
+					Add book
+				</a>
+				</div>
+				<div style="text-align:center;">
+				<a href="{{url_for('home.borrowFromOut_book',id=id)}}" class="btn btn-default btn-lg" >
+					<i class="fa fa-plus"></i>
+					Borrow from outside
+				</a>
+				</div>
+				
+				{% if books %}
+				<hr class="intro-divider"/>
+				<div class="center">
+					<table class="tabelka table table-striped table-bordered dataTable">
+						<thead>
+							<th width="10%"> Title </th>
+							<th width="10%"> Author </th>
+							<th width="10%"> Number of pages </th>
+							<th width="10%"> Status </th>
+							<th width="35%"> Comment </th>
+							<th width="5%"> Edit </th>
+							<th width="5%"> Delete </th>
+							<th width="5%"> Read </th>
+						</thead>
+						<tbody>
+						{% for book in books %}
+							<tr>
+								<td> {{ book.data.title }} </td>
+								<td> {{ book.data.author }} </td>
+								<td> {{ book.data.pages }} </td>
+								<td> 
+									{% if book.borrows.filter_by(dateBack=None,borrower=current_user,lender=current_user).first() %}
+										Reading
+									{%elif book.borrows.filter_by(dateBack=None,borrower=None).first() %}
+										Borrowed from outsider
+									{%elif book.borrows.filter_by(dateBack=None,lender=None).first() %}
+										Borrowed to outsider
+									{%elif book.borrows.filter_by(dateBack=None,borrower=current_user).first() %}
+										Borrowed by {{book.borrows.filter_by(dateBack=None,borrower=current_user).first().borrower.username}}
+									{%elif book.borrows.filter_by(dateBack=None,lender=current_user).first() %}
+										Borrowed from {{book.borrows.filter_by(dateBack=None,lender=current_user).first().borrower.username}}
+									{%else%}
+										On shelf
+									{% endif %}
+								</td>
+								<td> {{ book.comment }} </td>
+								<td>
+									<a href="{{url_for('home.edit_book',id=id,book_id=book.id)}}">
+										<i class="fa fa-pencil-square-o"></i>
+									</a>
+								</td>
+								<td>
+									<a href="{{url_for('home.delete_book',id=id,book_id=book.id)}}">
+										<i class="fa fa-trash-o"></i>
+									</a>
+								</td>
+								<td>
+									{% if book.borrows.filter_by(dateBack=None).first() %}
+										<i class="greyed fa fa-book"></i>
+										<a href="{{url_for('home.return_book',id=id,book_id=book.id)}}">
+											<i class="fa fa-stop">s</i>
+										</a>
+									{% else %}
+										<a href="{{url_for('home.read_book',id=id,book_id=book.id,borrower_id=id)}}">
+											<i class="fa fa-book">r</i>
+										</a>
+										<i class="greyed fa fa-stop"></i>
+									{% endif %}
+									<a href="{{url_for('home.borrowIn_book',id=id,book_id=book.id)}}">
+										i
+									</a>
+									<a href="{{url_for('home.borrowToOut_book',id=id,book_id=book.id)}}">
+										O
+									</a>
+									<a href="{{url_for('home.history_book',id=id,book_id=book.id)}}">
+										H
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{%endblock%}
+

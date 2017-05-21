@@ -1,0 +1,116 @@
+﻿{%extends "base.html"%}
+{%block title%}Home{%endblock%}
+{%block body%}
+{% if not current_user.is_authenticated %}
+<div class="intro-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="intro-message">
+					<h1>My Libraries</h1>
+					<h3>Managing home libraries since 2017</h3>
+					<hr class="intro-divider"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% else %}
+<div class="intro-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="intro-message">
+					<h1>My Library</h1>
+					<h3>{{current_user.username}}'s Statistics</h3>
+					<hr class="intro-divider"/>
+					<ul class="mystatistics">
+						<li>Average number of pages read per day: {{avgP}}</li>
+						<li>Average number of books read per month: {{avgBM}}</li>
+						<li>Average number of books read per year: {{avgBY}}</li>
+						<li>Last read: {{last_read}}</li>
+					</ul>
+					<hr class="intro-divider"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="content-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+			<h1  style="text-align:center;">Books thou art reading</h1>
+			<hr class="intro-divider"/>
+			<table class="tabelka table table-striped table-bordered">
+				<thead>
+					<td>Title</td>
+					<td>Author</td>
+					<td>Finish</td>
+				</thead>
+				<tbody>
+					{% for book in currently_read%}
+					<tr>
+						<td>{{book.data.title}}</td>
+						<td>{{book.data.author}}</td>
+						<td>
+							<a href="{{url_for('home.return_book',id=id,book_id=book.id)}}">
+								<i class="fa fa-stop"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			<div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<h1  style="text-align:center;">Books borrowed to thou</h1>
+				<hr class="intro-divider"/>
+				
+				<table class="tabelka table table-striped table-bordered">
+					<thead>
+						<td>Title</td>
+						<td>Author</td>
+						<td>Borrowed from</td>
+					</thead>
+					<tbody>
+						{% for book in borrowedTo%}
+							<tr>
+								<td>{{book.book.data.title}}</td>
+								<td>{{book.book.data.author}}</td>
+								<td>{{book.borrower.username}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="col-lg-6">
+				<h1  style="text-align:center;">Books borrowed from thou</h1>
+				<hr class="intro-divider"/>
+				
+				<table class="tabelka table table-striped table-bordered">
+					<thead>
+						<td>Title</td>
+						<td>Author</td>
+						<td>Borrowed to</td>
+					</thead>
+					<tbody>
+						{% for book in borrowedBy%}
+							<tr>
+								<td>{{book.book.data.title}}</td>
+								<td>{{book.book.data.author}}</td>
+								<td>{{book.lender.username}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{%endblock%}

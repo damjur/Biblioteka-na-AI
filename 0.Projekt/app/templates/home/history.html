@@ -1,0 +1,44 @@
+{%import "bootstrap/utils.html" as utils%}
+{%extends "base.html"%}
+{%block title%}Library{%endblock%}
+{%block body%}
+<div class="content-section">
+	<div class="outer">
+		<div class="middle">
+			<div class="inner">
+				<h1  style="text-align:center;">History of {{book.author}}'s {{book.title}}</h1>
+				
+				{% if history %}
+				<hr class="intro-divider"/>
+				<div class="center">
+					<table class="tabelka table table-striped table-bordered dataTable">
+						<thead>
+							<th width="25%"> From </th>
+							<th width="25%"> To </th>
+							<th width="25%"> Borrowed on </th>
+							<th width="25%"> Returned on </th>
+						</thead>
+						<tbody>
+						{% for book in history %}
+							<tr>
+								<td> {{ book.lender.username }} </td>
+								<td> {{ book.borrower.username }} </td>
+								<td> {{ book.dateOut }} </td>
+								<td>
+									{% if book.dateBack %}
+									{{ book.dateBack }} 
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{%endblock%}
+
